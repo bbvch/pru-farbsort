@@ -9,14 +9,13 @@
 #include "rpmsg_tx_interface.h"
 
 
-ControllerStateDiagnostic::ControllerStateDiagnostic(Hw &hw, TimerInterface *timer, RpMsgTxInterface *rpmsg):ControllerState(hw, timer, rpmsg)
-{
-}
+ControllerStateDiagnostic::ControllerStateDiagnostic(Hw &hw, TimerInterface *timer, RpMsgTxInterface *rpmsg)
+    :ControllerState(hw, timer, rpmsg)
+{}
 
 
 void ControllerStateDiagnostic::processCmd(Controller &controller, uint8_t cmd)
 {
-
     switch(cmd)
     {
         case CMD_MODE_NORMAL:
@@ -55,9 +54,7 @@ void ControllerStateDiagnostic::processCmd(Controller &controller, uint8_t cmd)
         case CMD_VALVE_3_OFF:
             hw.piston2->pull();
             break;
-
     }
-
 }
 
 void ControllerStateDiagnostic::onEntry()

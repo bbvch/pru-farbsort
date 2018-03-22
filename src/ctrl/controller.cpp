@@ -12,12 +12,14 @@
 extern uint8_t adc_values[200];
 #endif
 
-Controller::Controller(Hw &hw, RpMsgTxInterface *rpmsg, ControllerStateDiagnostic &state_diagnostic, ControllerStateNormalStopped &state_normal_stopped, ControllerStateNormalStarted &state_normal_started):
-                    state_diagnostic(state_diagnostic),
-                    state_normal_stopped(state_normal_stopped),
-                    state_normal_started(state_normal_started),
-                    hw(hw),
-                    rpmsg(rpmsg)
+Controller::Controller(Hw &hw, RpMsgTxInterface *rpmsg, ControllerStateDiagnostic &state_diagnostic,
+                       ControllerStateNormalStopped &state_normal_stopped,
+                       ControllerStateNormalStarted &state_normal_started):
+    state_diagnostic(state_diagnostic),
+    state_normal_stopped(state_normal_stopped),
+    state_normal_started(state_normal_started),
+    hw(hw),
+    rpmsg(rpmsg)
 {}
 
 void Controller::start()
@@ -27,8 +29,6 @@ void Controller::start()
     rpmsg->registerReceiver(this);
 
 }
-
-
 
 void Controller::setState(ControllerState* pNewState)
 {
@@ -57,7 +57,6 @@ void Controller::processCmd(uint8_t cmd)
 }
 
 
-
 void Controller::handleGetAllInfo()
 {
     char buffer[2];
@@ -71,30 +70,35 @@ void Controller::handleGetAllInfo()
     else {
       rpmsg->post_info(INFO_MOTOR_STOP);
     }
+
     if (hw.piston0->isPushed()) {
       rpmsg->post_info(INFO_VALVE_1_ON);
     }
     else {
       rpmsg->post_info(INFO_VALVE_1_OFF);
     }
+
     if (hw.piston1->isPushed()) {
       rpmsg->post_info(INFO_VALVE_2_ON);
     }
     else {
       rpmsg->post_info(INFO_VALVE_2_OFF);
     }
+
     if (hw.piston2->isPushed()) {
       rpmsg->post_info(INFO_VALVE_3_ON);
     }
     else {
       rpmsg->post_info(INFO_VALVE_3_OFF);
     }
+
     if (pState == &state_diagnostic)  {
       rpmsg->post_info(INFO_MODE_DIAGNOSTIC);
     }
     else {
       rpmsg->post_info(INFO_MODE_NORMAL);
     }
+
     if (pState == &state_normal_started) {
       rpmsg->post_info(INFO_CTRL_START);
     }
@@ -102,19 +106,20 @@ void Controller::handleGetAllInfo()
       rpmsg->post_info(INFO_CTRL_STOP);
     }
 
-
     if(hw.lightBarrier0->isInterrupted()) {
       rpmsg->post_info(INFO_LIGHT_BARRIER_1_DARK);
     }
     else {
       rpmsg->post_info(INFO_LIGHT_BARRIER_1_BRIGHT);
     }
+
     if (hw.lightBarrier1->isInterrupted()) {
       rpmsg->post_info(INFO_LIGHT_BARRIER_2_DARK);
     }
     else {
       rpmsg->post_info(INFO_LIGHT_BARRIER_2_BRIGHT);
     }
+
     if (hw.lightBarrierEmergencyStop->isInterrupted()) {
       rpmsg->post_info(INFO_EMERGENCY_STOP_ON);
     }
@@ -139,7 +144,7 @@ void Controller::doIt()
     pState->doIt();
 }
 
-void Controller::processesMessage(uint8_t *msg, uint16_t size){
+void Controller::processesMessage(uint8_t *msg, uint16_t /*size*/){
     processCmd((*msg));
 }
 

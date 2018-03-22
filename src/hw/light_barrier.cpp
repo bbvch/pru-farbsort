@@ -4,7 +4,11 @@
 #include "rpmsg_tx_interface.h"
 #include "msg_definition.h"
 
-LightBarrier::LightBarrier(int id, int mask, RpMsgTxInterface *rpmsg) : Gpi(mask), id(id), bOldIsInterrupted(false), rpmsg(rpmsg)
+LightBarrier::LightBarrier(int id, int mask, RpMsgTxInterface *rpmsg)
+    : Gpi(static_cast<uint32_t>(mask)),
+      id(id),
+      oldIsInterrupted(false),
+      rpmsg(rpmsg)
 {
 
 }
@@ -18,14 +22,14 @@ void LightBarrier::poll()
 {
     bool newIsInterrupted = isInterrupted();
 
-    if(newIsInterrupted != bOldIsInterrupted)
+    if(newIsInterrupted != oldIsInterrupted)
     {
-        bOldIsInterrupted = newIsInterrupted;
+        oldIsInterrupted = newIsInterrupted;
 
 	if (_isValidId())
 	{
 	    uint8_t msg = _getMsgFromIdAndInterrupted(newIsInterrupted);
-	    rpmsg->post_info(msg);
+        rpmsg->post_info(static_cast<char>(msg));
 	}
     }
 }

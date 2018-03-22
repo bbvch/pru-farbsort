@@ -12,11 +12,9 @@
 int16_t post_info(char info);
 
 
-ControllerStateNormalStarted::ControllerStateNormalStarted(Hw &hw,
-                                                                     TimerInterface *timer,
-                                                                     RpMsgTxInterface *rpmsg,
-                                                                     Queue<Color,COLOR_QUEUE_SIZE> &colorQueue,
-                                                                     ObjectPool<BrickEjectCommand, 5> &ejectCommandPool)
+ControllerStateNormalStarted::ControllerStateNormalStarted(Hw &hw, TimerInterface *timer,
+                                                           RpMsgTxInterface *rpmsg, Queue<Color,COLOR_QUEUE_SIZE> &colorQueue,
+                                                           ObjectPool<BrickEjectCommand, 5> &ejectCommandPool)
     :ControllerState(hw, timer, rpmsg),
       ejectCommandPool(ejectCommandPool),
       lb2BrickUnhandled(false),

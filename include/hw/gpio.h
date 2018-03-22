@@ -22,7 +22,7 @@ public:
     static const uint32_t LIGHTBARRIERS3_TO_5_MASK;
 
 protected:
-     const int mask;
+     const uint32_t mask;
 };
 
 #endif // GPIO_H

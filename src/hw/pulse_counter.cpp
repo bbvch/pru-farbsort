@@ -2,7 +2,10 @@
 #include "pulse_counter.h"
 #include "gpi.h"
 
-PulseCounter::PulseCounter(int mask) : Gpi(mask), slopeCount(0), bOldState(false)
+PulseCounter::PulseCounter(int mask) :
+    Gpi(static_cast<uint32_t>(mask)),
+    slopeCount(0),
+    bOldState(false)
 {
 
 }

@@ -3,16 +3,16 @@
 namespace {
   volatile uint32_t *const AdcBaseAddr = (uint32_t*)0x44E0D000;
 
-  const uint32_t CTRL = 0x40;
-  const uint32_t ADC_CLKDIV = 0x4c;
-  const uint32_t STEPCONFIG1 = 0x64;
+  const uint32_t CTRL           = 0x40;
+  const uint32_t ADC_CLKDIV     = 0x4c;
+  const uint32_t STEPCONFIG1    = 0x64;
   //const uint32_t STEPDELAY1 = 0x68;
   const uint32_t FIFO1THRESHOLD = 0xf4;
-  const uint32_t FIFO1COUNT = 0xf0;
-  const uint32_t FIFO1DATA = 0x200;
-  const uint32_t ADCSTAT = 0x44;
-  const uint32_t STEPENABLE = 0x54;
-  const uint32_t FSM_BUSY = (1<<5);
+  const uint32_t FIFO1COUNT     = 0xf0;
+  const uint32_t FIFO1DATA      = 0x200;
+  const uint32_t ADCSTAT        = 0x44;
+  const uint32_t STEPENABLE     = 0x54;
+  const uint32_t FSM_BUSY       = (1<<5);
 
   uint32_t register_read(uint32_t offset)
   {

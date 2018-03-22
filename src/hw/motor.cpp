@@ -3,7 +3,8 @@
 #include "msg_definition.h"
 
 
-Motor::Motor(int mask) : Gpo(mask)
+Motor::Motor(int mask)
+    : Gpo(static_cast<uint32_t>(mask))
 {
 
 }
